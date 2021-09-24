@@ -1,3 +1,17 @@
+black_list = [
+    "00000000000",
+    "11111111111",
+    "22222222222",
+    "33333333333",
+    "44444444444",
+    "55555555555",
+    "66666666666",
+    "77777777777",
+    "88888888888",
+    "99999999999",
+]
+
+
 def is_valid(cpf: str) -> bool:
     return len(cpf) >= 11 or len(cpf) <= 14
 
@@ -62,6 +76,9 @@ def validate(cpf: str) -> str:
         return False
 
     formatted_cpf = format_cpf(cpf)
+
+    if formatted_cpf in black_list:
+        return False
 
     if not is_first_digit_valid(formatted_cpf):
         return False
