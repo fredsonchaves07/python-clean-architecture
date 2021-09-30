@@ -15,8 +15,10 @@ class Order:
     def add_item(self, item: Item, quantity: int) -> None:
         self._order_items.append(OrderItem(item.id, item.price, quantity))
 
-    def add_coupon(self, code: str, percentage: int) -> None:
-        self._coupon = Coupon(code, percentage)
+    def add_coupon(self, coupon: Coupon) -> None:
+        if coupon.is_expired():
+            raise Exception("Coupon expired")
+        self._coupon = coupon
 
     def get_total(self) -> float:
         total: float = 0.0

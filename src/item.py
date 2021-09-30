@@ -1,6 +1,8 @@
+from src.product import Product
+
+
 class Item:
-    def __init__(self, id_: int, category: str, description: str, price: float) -> None:
+    def __init__(self, id_: int, product: Product, price: float) -> None:
         self.id = id_
-        self.category = category
-        self.description = description
+        self.product = product
         self.price = price
