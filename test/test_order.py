@@ -1,28 +1,27 @@
-from app.entity import Order, Person, Product
+import pytest
+from src.item import Item
+from src.order import Order
+
+
+def test_no_order_with_invalid_cpf():
+    with pytest.raises(ValueError):
+        Order("111.111.111-11")
 
 
 def test_order():
-    person = Person("15805772027")
-
-    products = [
-        Product("Computador", 4500.99, 10),
-        Product("Geladeira", 3051.80, 1),
-        Product("Televisão", 5600.26, 5),
-    ]
-
-    order = Order(person, products)
-
-    assert order.person.cpf == person.cpf
-    for index in range(len(products)):
-        assert order.products[index].description == products[index].description
-        assert order.products[index].quantity == products[index].quantity
-        assert order.products[index].price == products[index].price
+    order = Order("847.903.332-05")
+    order.add_item(Item(1, "Instrumentos Musicais", "Guitarra", 1000), 1)
+    order.add_item(Item(2, "Instrumentos Musicais", "Amplificador", 500), 1)
+    order.add_item(Item(3, "Instrumentos Musicais", "Cabos", 60), 3)
+    total = order.get_total()
+    assert total == 1680.00
 
 
-def test_discount_coupon():
-    person = Person("15805772027")
-    product = Product("Computador", 1500.99, 2)
-    coupon = 10
-    order = Order(person, product)
-
-    assert order.calculate_discount(coupon) == product.price - (product * coupon)
+def test_order_with_coupon():
+    order = Order("847.903.332-05")
+    order.add_item(Item(1, "Instrumentos Musicais", "Guitarra", 1000), 1)
+    order.add_item(Item(2, "Instrumentos Musicais", "Amplificador", 500), 1)
+    order.add_item(Item(3, "Instrumentos Musicais", "Cabos", 60), 3)
+    order.add_coupon("VALE20", 20)
+    total = order.get_total()
+    assert total == 1344.00
