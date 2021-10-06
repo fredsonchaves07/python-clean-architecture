@@ -6,11 +6,11 @@ class Coupon:
         self._code = code
         self.percentage = percentage
         if not date_expire:
-            self._date_expire = datetime.now().strftime("%d-%m-%Y")
+            self._date_expire = datetime.now()
         else:
-            self._date_expire = date_expire
+            self._date_expire = datetime.strptime(date_expire, "%d-%m-%Y")
 
-    def is_expired(self) -> bool:
-        if self._date_expire < datetime.now().strftime("%d-%m-%Y"):
+    def is_expired(self, today: str) -> bool:
+        if self._date_expire < datetime.strptime(today, "%d-%m-%Y"):
             return True
         return False
