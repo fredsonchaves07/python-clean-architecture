@@ -1,5 +1,5 @@
 import pytest
-from src.cpf import Cpf
+from src.domain.entity.cpf import Cpf
 
 
 def test_cpf_valid():

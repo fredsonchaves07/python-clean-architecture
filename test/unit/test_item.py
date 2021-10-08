@@ -1,4 +1,4 @@
-from src.item import Item
+from src.domain.entity.item import Item
 
 
 def test_item():

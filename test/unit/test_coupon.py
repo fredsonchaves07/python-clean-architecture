@@ -1,4 +1,4 @@
-from src.coupon import Coupon
+from src.domain.entity.coupon import Coupon
 
 
 def test_coupon_not_expired():

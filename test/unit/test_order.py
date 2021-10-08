@@ -1,7 +1,7 @@
 import pytest
-from src.coupon import Coupon
-from src.item import Item
-from src.order import Order
+from src.domain.entity.coupon import Coupon
+from src.domain.entity.item import Item
+from src.domain.entity.order import Order
 
 
 def test_no_order_with_invalid_cpf():

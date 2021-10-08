@@ -1,10 +1,10 @@
 from datetime import datetime
 from typing import List
 
-from src.coupon import Coupon
-from src.cpf import Cpf
-from src.item import Item
-from src.order_item import OrderItem
+from src.domain.entity.coupon import Coupon
+from src.domain.entity.cpf import Cpf
+from src.domain.entity.item import Item
+from src.domain.entity.order_item import OrderItem
 
 
 class Order:
