@@ -4,15 +4,17 @@ from typing import List
 from src.domain.entity.coupon import Coupon
 from src.domain.entity.cpf import Cpf
 from src.domain.entity.item import Item
+from src.domain.entity.order_code import OrderCode
 from src.domain.entity.order_item import OrderItem
 
 
 class Order:
-    def __init__(self, cpf: str, issue_date: str = None) -> None:
+    def __init__(self, cpf: str, issue_date: str = None, sequence = 1) -> None:
         self._cpf: Cpf = Cpf(cpf)
         self._order_items: List[OrderItem] = []
         self._coupon: Coupon = None
         self._freight = 0
+        self.order_code = OrderCode(datetime.strptime(issue_date, "%Y-%m-%d"), sequence)
         if not issue_date:
             self._issue_date = datetime.now().strftime("%d-%m-%Y")
         else:
@@ -33,3 +35,6 @@ class Order:
         if self._coupon:
             total -= (total * self._coupon.percentage) / 100
         return total
+    
+    def get_code(self) -> str:
+        return self._code

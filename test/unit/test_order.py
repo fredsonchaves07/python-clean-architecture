@@ -19,8 +19,8 @@ def test_order():
 
 
 def test_order_with_coupon():
-    order = Order("847.903.332-05", "10-10-2021")
-    coupon = Coupon("VALE20", 20, "10-10-2021")
+    order = Order("847.903.332-05", "2021-10-10")
+    coupon = Coupon("VALE20", 20, "2021-10-10")
     order.add_item(Item(1, "Guitarra", "Instrumentos Musicais", 1000), 1)
     order.add_item(Item(2, "Amplificador", "Instrumentos Musicais", 500), 1)
     order.add_item(Item(3, "Cabos", "Instrumentos Musicais", 60), 3)
@@ -30,10 +30,18 @@ def test_order_with_coupon():
 
 
 def test_no_order_with_expired_coupon():
-    order = Order("847.903.332-05", "10-10-2021")
-    coupon_expired = Coupon("VALE20", 20, "29-03-2021")
+    order = Order("847.903.332-05", "2021-10-10")
+    coupon_expired = Coupon("VALE20", 20, "2021-04-29")
     order.add_item(Item(1, "Guitarra", "Instrumentos Musicais", 1000), 1)
     order.add_item(Item(2, "Amplificador", "Instrumentos Musicais", 500), 1)
     order.add_item(Item(3, "Cabos", "Instrumentos Musicais", 60), 3)
     with pytest.raises(Exception):
         order.add_coupon(coupon_expired)
+
+def test_order_with_order_code():
+    order = Order("847.903.332-05", "2021-03-01")
+    order.add_item(Item(1, "Guitarra", "Instrumentos Musicais", 1000), 1)
+    order.add_item(Item(2, "Amplificador", "Instrumentos Musicais", 500), 1)
+    order.add_item(Item(3, "Cabos", "Instrumentos Musicais", 60), 3)
+    code = order.order_code
+    assert code.code == "2021000000001"

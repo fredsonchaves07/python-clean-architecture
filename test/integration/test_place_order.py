@@ -14,4 +14,4 @@ def test_place_order():
     }
     place_order = PlaceOrder(ItemRepositoryMemory(), OrderRepositoryMemory())
     output = place_order.execute(input)
-    assert output.get("total") == 1680.00
+    assert output.total == 1680.00
